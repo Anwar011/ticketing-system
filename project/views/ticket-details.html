@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Ticket</title>
+    <link rel="icon" href="/public/favicon.ico">
+</head>
+<style>
+    /* Your existing CSS styles */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .ticket-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+    .comment-container {
+        margin-top: 20px;
+    }
+    h4 {
+        font-weight: bold;
+        color: black;
+    }
+    .comment-container textarea {
+        width: 100%;
+        resize: none;
+    }
+    .ticket-container p {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    .ticket-container strong {
+        color: #008484;
+    }
+    button {
+        background-color: #008484;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #1c747c;
+    }
+    .comments-list {
+        margin-top: 20px;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+    }
+    .comment {
+        background-color: #e9e9e9;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+    <div class="ticket-container">
+        <h2>Détails du ticket</h2>
+        <p><strong>Type :</strong>
+            <select id="type"><span id="type"></span></p>   
+                <option value="">Sélectionnez un type</option>
+                <option value="requete">requete</option>
+                <option value="incendie">incendie</option>
+                
+            </select>
+        </p>
+        <p><strong>Catégorie :</strong> <span id="category"></span></p>
+        <p><strong>Demandeur :</strong> <span id="requester"></span></p>
+        <p><strong>Sujet :</strong> <span id="subject"></span></p>
+        <p><strong>Détails du sujet :</strong></p>
+        <p id="details"></p>
+
+        <button onclick="toggleComments()">Afficher les commentaires</button>
+
+        <!-- Comments List -->
+        <div id="comments-list" class="comments-list" style="display: none;">
+            <!-- Comments will be dynamically inserted here -->
+        </div>
+
+        <!-- Comment Section -->
+        <div class="comment-container">
+            <h4>Ajouter un commentaire</h4>
+            <textarea id="comment" rows="4" placeholder="Écrivez votre commentaire ici..."></textarea>
+            <div class="button-container">
+                <button onclick="submitComment()">Ajouter le commentaire</button>
+                <button onclick="goBack()">Retour</button>
+                <button onclick="changeTicketStatus('resolved')">Mark as Resolved</button>    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let ticketdetails = {}; // Define ticketdetails globally
+
+function loadTicketDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const ticketId = params.get('id'); // Get ticket ID from URL
+    const apiUrl = `http://localhost:3000/ticket/${ticketId}`;
+    
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                throw new Error(data.message); // Handle specific API error messages
+            }
+            document.getElementById('type').value = data.type || ''; // Set the current type
+            document.getElementById('category').innerText = data.category || 'Unknown';
+            document.getElementById('requester').innerText = data.client_id || 'Unknown';
+            document.getElementById('subject').innerText = data.title || 'Unknown';
+            document.getElementById('details').innerText = data.description || 'No details available.';
+
+            // Store ticket details globally
+            ticketdetails = data;
+            console.log(ticketdetails);
+        })
+        .catch(error => {
+            console.error('Error fetching ticket details:', error);
+            alert('Error fetching ticket details: ' + error.message);
+        });
+}
+
+function changeTicketStatus(status) {
+    const params = new URLSearchParams(window.location.search);
+    const ticketId = params.get('id');
+    fetch('/ticket/status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ticket_id: ticketId,
+            status: status
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.message) {
+            alert(data.message);    
+            // Optionally, update the UI to reflect the status change
+        } else if (data.error) {
+            alert(data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+function submitComment() {
+    const comment = document.getElementById('comment').value;
+    const params = new URLSearchParams(window.location.search);
+    const ticketId = params.get('id'); // Get ticket ID from URL
+
+    if (comment) {
+        fetch('http://localhost:3000/ticket/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ticket_id: ticketId,
+                comment: comment,
+            }),
+        })
+        .then(response => response.text()) // Read response as text
+        .then(text => {
+            try {
+                const data = JSON.parse(text); // Try to parse JSON
+                if (data.message) {
+                    alert(data.message);
+                }
+                document.getElementById('comment').value = ''; // Clear the field after submission
+            } catch (error) {
+                console.error('Failed to parse JSON:', error);
+                alert('Unexpected response format');
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting comment:', error);
+            alert('Error submitting comment: ' + error.message);
+        });
+    } else {
+        alert('Veuillez entrer un commentaire.');
+    }
+}
+
+function goBack() {
+    window.history.back();
+}
+
+function fetchComments(ticketId) {
+    fetch(`http://localhost:3000/ticket/${ticketId}/comments`)
+        .then(response => response.json())
+        .then(data => {
+            displayComments(data); // Function to display comments
+        })
+        .catch(error => {
+            console.error('Error fetching comments:', error);
+            alert('Error fetching comments: ' + error.message);
+        });
+}
+
+function displayComments(comments) {
+    const commentsList = document.getElementById('comments-list');
+    commentsList.innerHTML = ''; // Clear existing comments
+    comments.forEach(comment => {
+        const commentElement = document.createElement('div');
+        commentElement.className = 'comment';
+        commentElement.innerHTML = `
+            <p><strong>created_at:</strong> ${comment.created_at}</p>
+            <p>${comment.comment}</p>
+        `;
+        commentsList.appendChild(commentElement);
+    });
+}
+
+function toggleComments() {
+    const commentsList = document.getElementById('comments-list');
+    const params = new URLSearchParams(window.location.search);
+    const ticketId = params.get('id'); // Get ticket ID from URL
+    
+    if (commentsList.style.display === 'none') {
+        fetchComments(ticketId); // Fetch comments when displaying
+        commentsList.style.display = 'block';
+    } else {
+        commentsList.style.display = 'none';
+    }
+}
+
+// Update ticket details on type change
+document.getElementById('type').addEventListener('change', function() {
+    // Update ticket details with new type
+    ticketdetails.type = document.getElementById('type').value;
+
+    fetch('http://localhost:3000/ticket/update', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(ticketdetails),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            alert(data.message); // Display response message
+        }
+    })
+    .catch(error => {
+        console.error('Error updating ticket:', error);
+        alert('Error updating ticket: ' + error.message);
+    });
+});
+
+// Load ticket details when the page loads
+window.onload = loadTicketDetails;
+
+    </script>
+</body>
+</html>

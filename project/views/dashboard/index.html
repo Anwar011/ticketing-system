@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <!---------------------------------------------------- Sidebar ---------------------------------------------------------------------------->
+    <nav class="sidebar hide">
+        <ul>
+            <br>
+            <br>
+            <br>
+            <li class="active dropdown">
+                <a href="file:///E:/6-VSC/VSC7%20(ticketing%20system)/VSC7.3%20(dashboard)/dashboard.html" class="text"><span class="icon"><i class="material-icons">dashboard</i></span>
+                Dashboard</a>
+            </li>
+
+            <li>
+                <a href="file:///E:/6-VSC/VSC7%20(ticketing%20system)/VSC7.1%20(tickets)/tickets.html" class="text1"><span class="icon"><i class="material-icons">receipt</i></span>
+                Tickets</a>
+
+                <div class="dropdown-toggle">&#9660;</div>
+
+                <div class="dropdown-menu">
+                    <a href="#">Open</a>
+                    <a href="#">Resolved</a>
+                </div>
+            </li>
+
+            <li>
+                <span class="icon"><i class="material-icons">people</i></span>
+                Users</li>
+
+            <li>
+                <span class="icon"><i class="material-icons">person_add</i></span>
+                Agents</li>
+
+            <li>
+                <span class="icon"><i class="material-icons">calendar_today</i></span>
+                Calendar</li>
+
+            <li>
+                <span class="icon"><i class="material-icons">bar_chart</i></span>
+                Reports</li>
+
+            <li>
+                <span class="icon"><i class="material-icons">settings</i></span>
+                Settings</li>
+
+            <li id="logout-button">
+                <span class="icon"><i class="material-icons">logout</i></span>
+                Logout</li>
+
+        </ul>
+    </nav>
+    <!------------------------------------------ Barre d'entete --------------------------------------------------------------------------->
+    <main class="content">
+        <button class="sidebar-toggle">&#9776;</button>
+        <header>
+            <img src="image/logo.png" alt="" class="logo">
+            <div class="header-center">
+                <input type="text" placeholder="Search here">
+            </div>
+            <div class="header-right">
+                <img src="image/agent.jpg" alt="User" class="user-photo">
+                <div class="header-text">
+                    <span>Samantha</span>
+                </div>
+                <button class="assign-button">Assign</button>
+            </div>
+        </header>
+        <!-- -----------------------------------------Main content --------------------------------------------------------------------------->
+        <div class="filter-section">
+            <label for="filter">Filter by:</label>
+            <select id="filter" name="filter">
+                <option value="day">Day</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+            </select>
+        </div>
+
+    
+        <div class="cards">
+            <div class="card">Opened Tickets<br><span>10</span></div>
+            <div class="card">Closed Tickets<br><span>10</span></div>
+            <div class="card">Resolved Tickets<br><span>10</span></div>
+            <div class="card">In Progress Tickets<br><span>10</span></div>
+        </div>
+        <div class="cards">
+            <div class="card">Number of Agents<br><span id="agent-count">5</span></div>
+            <div class="card">Other Important Info<br><span>Data</span></div>
+        </div>
+        
+        </div><div class="chart">
+            <canvas id="myChart"></canvas>
+        </div>
+        
+        <div class="chart">
+            <canvas id="agentChart"></canvas>
+        </div>
+        
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const logoutButton = document.getElementById('logout-button');
+          if (logoutButton) {
+              console.log('Logout button found:', logoutButton);
+              logoutButton.addEventListener('click', function() {
+                  console.log('Logout button clicked');
+                  fetch('/logout', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      }
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('Logout response:', data);
+                      if (data.message === 'Successfully logged out.') {
+                          window.location.href = '/views/login/index.html'; // Redirect to the login page
+                      } else {
+                          alert('Logout failed.');
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                  });
+              });
+          } else {
+              console.error('Logout button not found');
+          }
+      });
+    </script>
+</body>
+</html>

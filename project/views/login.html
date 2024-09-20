@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional CSS file -->
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <div id="error-message" style="color: red;"></div>
+    </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/login', { // Adjust URL to your login endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.message === 'Login successful.') {
+                    // Save user role and redirect
+                    localStorage.setItem('userRole', data.role); // Save role for later use
+                    window.location.href = getRedirectUrl(data.role);
+                } else {
+                    // Display error message
+                    document.getElementById('error-message').textContent = data.message;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error-message').textContent = 'An error occurred. Please try again.';
+            }
+        });
+
+        function getRedirectUrl(role) {
+            switch (role) {
+                case 'support':
+                    return './support/index.html';
+                case 'agent':
+                    return 'agent/index.html';
+                case 'client':
+                    return 'client/index.html';
+                case 'admin':
+                    return '../interface_admin/admin/nomusers.html';
+                default:
+                    return 'login.html'; // Default to login if no role matches
+            }
+        }
+    </script>
+</body>
+</html>

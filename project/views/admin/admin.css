@@ -1,0 +1,656 @@
+/* Styles globaux */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    overflow-x: hidden;
+  }
+  
+  .container {
+    display: flex;
+    transition: margin-left 0.3s;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px; 
+  }
+  
+  /* --------------------------------------------------------Sidebar -------------------------------------------------------*/
+  /* Styles de la barre latérale */
+  .sidebar {
+    width: 250px;
+    background-color: #008484; 
+    color: #ecf0f1;
+    padding: 20px;
+    height: 100vh; 
+    position: fixed; 
+    transform: translateX(-100%); 
+    top: 0;
+    transition: transform 0.3s; 
+    z-index: 999; 
+  }
+  
+  .text{
+    color: white;
+    text-decoration: none;
+  }
+  
+  .text1{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  /* Affichage de la barre latérale quand elle est active */
+  .sidebar.show {
+    transform: translateX(0); 
+  }
+  
+  /* Styles de la liste de navigation dans la barre latérale */
+  .sidebar ul {
+    list-style: none; 
+    padding: 0;
+  }
+  
+  /* Styles des éléments de la liste de navigation */
+  .sidebar ul li {
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
+  }
+  
+  /* Styles des éléments de la liste au survol et quand ils sont actifs */
+  .sidebar ul li:hover {
+    background-color: #6d9ea3;
+  }
+  
+  .sidebar ul li.active {
+    background-color: #1c747c;
+  }
+  
+  /* Styles des icônes des éléments de la liste */
+  .sidebar ul li .icon {
+    font-size: 20px;
+    margin-right: 15px;
+  }
+  
+  /* Styles des sous-menus déroulants dans la barre latérale */
+  .sidebar .dropdown-menu {
+    display: none; 
+    position: absolute;
+    background-color: #1c747c;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+  
+  .dropdown-menu{
+    color: white;
+  }
+  
+  /* Affichage du sous-menu quand il est actif */
+  .sidebar .dropdown.show .dropdown-menu {
+    display: block;
+  }
+  
+  /* Styles des liens dans les sous-menus */
+  .sidebar .dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none; 
+    color: white;
+  }
+  
+  
+  
+  
+  .checkbox-cell {
+    display: flex;
+    align-items: start; /* Aligne verticalement au centre */
+    justify-content: start; /* Centre horizontalement */
+    
+  }
+  
+  
+  
+  #myCheckbox{
+    display: flex;
+   
+  }
+  
+  #lab{
+    margin-left: 20px;
+  }
+  
+  
+  /* Styles des liens dans les sous-menus au survol */
+  .sidebar .dropdown-menu a:hover {
+    background-color: #6d9ea3;
+  }
+  
+  /* Styles du bouton pour afficher/cacher la barre latérale */
+  .sidebar-toggle {
+    position: fixed;
+    background-color: #008484; 
+    color: #f1ecee;
+    border: none;
+    padding: 10px 13px;
+    font-size: 20px;
+    cursor: pointer;
+    top: 10px; 
+    left: 10px; 
+    border-radius: 10px;
+    z-index: 1001; 
+  }
+  
+  /* ----------------------------------------------------------Barre d'entete------------------------------------------ */
+  .logo{
+    width: 200px;
+    position: relative;
+    left: 100px;
+  }
+  
+  .active1{
+    color: rgb(228, 228, 13);
+  }
+  
+  .pending {
+    border: 2px solid red; /* Bordure rouge de 2 pixels */
+    border-radius: 10px; /* Coins arrondis de 2 pixels */
+    padding: 2px 4px; /* Réduit l'espace à l'intérieur de la bordure */
+    background-color: red; /* Remplit l'intérieur avec du rouge */
+    color: white; /* Change la couleur du texte en blanc pour plus de contraste */
+    text-align: center; /* Centre le texte */
+    display: inline-block; /* Rendre le conteneur plus étroit */
+    margin: 8px 0; /* Ajoute un espace vertical entre les lignes */
+  }
+  .Low{
+  color: orange;
+  }
+  .High{
+    color: rgb(225, 71, 71);
+  }
+  .Medium{
+  
+    color:rgb(84, 84, 255);
+  }
+  
+  .resolved{
+    color: green;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s;
+  }
+  
+  /* Styles de l'en-tête */
+  header {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    z-index: 1000;
+    height: 50px;
+  }
+  
+  .header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centrer le contenu */
+  }
+  
+  .header-center input {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .header-center input:focus {
+    border-color: #84c1d3; 
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  
+  .header-top {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Réduire cette valeur si nécessaire pour moins d'espace */
+  }
+  
+  .user-photo {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  
+  .header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px; /* Ajustez cette marge pour l'espacement */
+  }
+  
+  .assign-button1 {
+    background-color: #008484; 
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-right: 50px; 
+    
+  }
+  
+  .assign-button1:hover {
+    background-color: #1c747c; 
+  
+  }
+  
+  .assign-button {
+    background-color: #008484; 
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    scroll-margin-block-end: 50px; 
+    display: flex;
+    align-items:end;
+  }
+  
+  .technician-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    padding: 15px; /* Espace à l'intérieur des cellules */
+    border-bottom: 1px solid #e0e0e0; /* Ligne de séparation */
+    position: relative;
+    width: 100%; /* S'assure que le tableau utilise toute la largeur disponible */
+    border-spacing: 0; /* Supprime les espaces entre les cellules */
+  }
+  
+  .table-container {
+    width: calc(100% - 40px);
+    overflow-x: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .sidebar.show~.content .table-container {
+    width: calc(100% - 290px);
+    padding-left: 330px;
+    padding-right: 40px;
+  }
+  
+  .technician-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     width: 100%; /* Utilise 100% de la largeur de son conteneur */
+    border-collapse: collapse; /* Supprime les espaces entre les bordures */
+    background-color: #fff; /* Couleur de fond du tableau */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre au tableau */
+  }
+  
+  .technician-list th, 
+  .technician-list td {
+    padding: 15px;
+    border-bottom: 1px  #e0e0e0;
+  }
+  
+  .technician-list th {
+    background-color: #60bdbd;
+    text-align: center;
+  }
+  
+  .technician-list td img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  
+  .checkbox-cell {
+    text-align: center;
+  }
+  
+  .technician-list th:nth-child(1),
+  .technician-list td:nth-child(1) {
+    text-align: center; 
+  }
+  
+  .technician-list th:nth-child(2),
+  .technician-list td:nth-child(2) {
+    text-align: left;
+  }
+  
+  .technician-list th:nth-child(3),
+  .technician-list td:nth-child(3) {
+    text-align: left;
+  }
+  
+  .technician-list th:nth-child(4),
+  .technician-list td:nth-child(4) {
+    text-align: left;
+  }
+  
+  .technician-list th:nth-child(5),
+  .technician-list td:nth-child(5) {
+    text-align: left;
+  }
+  
+  .technician-list th:nth-child(6),
+  .technician-list td:nth-child(6) {
+    text-align: center;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 5px;
+  }
+  
+  .pagination span {
+    cursor: pointer;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .pagination span:hover,
+  .pagination span.active {
+    background-color: #84c1d3; 
+    color: #ffffff;
+  }
+  
+  .pagination span.disabled {
+    cursor: not-allowed;
+    color: #b0b0b0;
+    background-color: #f5f5f5;
+  }
+  
+  .pagination .prev,
+  .pagination .next {
+    font-weight: bold;
+  }
+  
+  /*Media queries */
+  
+  @media screen and (max-width: 767px) {
+    .logo{
+        width: 150px;
+    }
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .comment-section {
+      
+    display: flex;
+    flex-direction: column;
+    background: var(--secondary-color); /* Fond blanc */
+    padding: 10px;
+    border: 2px solid #008484; /* Bordure rouge et plus épaisse */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+   
+  }
+  
+  .comment-section p {
+   margin: 0; /* Supprime les marges pour un meilleur alignement */
+  }
+  
+  
+  .title {
+    color: #000; /* Couleur du texte à noir */
+    font-family: Arial, sans-serif; /* Police identique à celle du demandeur */
+    margin-bottom: 5px; /* Espacement en dessous du titre */
+    text-decoration: underline; /* Souligner le texte */
+    
+  }
+  
+  
+  
+  .requester{
+    text-indent: 20px; /* Indente le texte de 20 pixels */
+  
+  
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .comment-input {
+    width: 96%; /* Largeur du textarea */
+    height: 100px; /* Hauteur du textarea */
+    resize: none; /* Empêche le redimensionnement */
+    padding: 10px; /* Ajoute du padding pour le confort de l'utilisateur */
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px; /* Ajuste la taille de la police */
+    
+    background-color: var(--secondary-color); /* Couleur de fond du textarea */
+    font-family: Arial, sans-serif; /* Police identique à celle du demandeur */
+  
+  }
+  
+  .comment-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; /* Espacement au-dessus des boutons */
+  }
+  
+  .comment-submit,
+  .comment-cancel {
+    padding: 8px 16px;
+    background-color: #1c747c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s; /* Ajout d'une transition */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-submit:hover,
+  .comment-cancel:hover {
+    background-color: #369e9e97;
+  }
+  
+  /* Styles de focus pour l'accessibilité */
+  .comment-submit:focus,
+  .comment-cancel:focus {
+    outline: 2px solid var(--primary-hover);
+    outline-offset: 2px;
+  }
+  
+  
+  
+  
+  
+  
+  
+  /* Modal styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  .modal-content{
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  
+  /* Styles pour la modale */
+  .modall {
+    display: none; /* Assurez-vous que la modale est cachée par défaut */
+    position: fixed; /* Fixe la position de la modale */
+    z-index: 1000; /* Place la modale au-dessus des autres éléments */
+    left: 0;
+    top: 0;
+    width: 100%; /* Occupe toute la largeur de l'écran */
+    height: 100%; /* Occupe toute la hauteur de l'écran */
+    overflow: auto; /* Ajoute un défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  }
+  
+  /* Contenu de la modale */
+  .modal-contentt {
+    background-color: transparent !important;
+    margin: auto !important;
+    padding: 20px !important;
+    border-radius: 0; /* Suppression des coins arrondis */
+    width: 80%; /* Largeur de la modale */
+    max-width: 900px; /* Largeur maximale */
+    border: none !important; /* Forcer la suppression de la bordure */
+    box-shadow: none !important; /* Forcer la suppression de l'ombre portée */
+    position: relative; /* Nécessaire pour le centrage */
+    top: 50%; /* Positionnement à 50% de la hauteur de la fenêtre */
+    transform: translateY(-50%); /* Ajuste la modale pour qu'elle soit centrée verticalement */
+  
+  }
+  
+  
+  
+  /* Bouton de fermeture */
+  .closee {
+    color: #aaa; /* Couleur du texte */
+    float: right; /* Positionne le bouton en haut à droite */
+    font-size: 28px; /* Taille du texte */
+    font-weight: bold; /* Gras */
+    cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
+  }
+  
+  .closee:hover,
+  .closee:focus {
+    color: black; /* Couleur au survol */
+    text-decoration: none; /* Pas de soulignement */
+  }
+  
+  
+  
+  .modal-contentt {
+    border: none !important; /* Supprimer la bordure si elle est appliquée par d'autres styles */
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .comment-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+  }/* Modal background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Black background with opacity */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

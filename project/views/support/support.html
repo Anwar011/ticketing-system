@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets</title>
+    <link rel="stylesheet" href="/views/support/support.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <base href="/views">
+
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul>
+                <br>
+                <br>
+                <br>
+                <li>
+                    <a href="file:///C:/Users/PC/Desktop/VSC7%20(ticketing%20system)/VSC7.3%20(dashboard)/dashboard.html" class="text"><span class="icon"><i class="material-icons">dashboard</i></span>
+                        Dashboard</a>
+                </li>
+                <li class="active">
+                    <a href="file:///C:/Users/PC/Desktop/VSC7%20(ticketing%20system)/VSC7.1%20(tickets)/tickets.html" class="text1"><span class="icon"><i class="material-icons">receipt</i></span>
+                        Tickets</a>
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">people</i></span>
+                    <a href="file:///C:/Users/PC/Desktop/VSC7%20(ticketing%20system)/nomutulisateur/nomutulisateur.html" class="text1"><span class="icon"><i class="material-icons"></i></span>
+                        Users</a>
+                </li>
+                <li>
+                    <a href="file:///C:/Users/PC/Desktop/VSC7%20(ticketing%20system)/VSC7.5%20(agent)/agent.html" class="text1"><span class="icon"><i class="material-icons">receipt</i></span>
+                        Agents</a>
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">calendar_today</i></span>
+                    Calendar
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">bar_chart</i></span>
+                    Reports
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">settings</i></span>
+                    Settings
+                </li>
+                <li id="logout-button">
+                    <span class="icon"><i class="material-icons">logout</i></span>
+                    Logout
+                </li>
+            </ul>
+        </nav>
+        <!-- Barre d'entete -->
+        <main class="content">
+            <button class="sidebar-toggle">&#9776;</button>
+            <header>
+                <img src="image/logo.png" alt="" class="logo">
+                <div class="header-center">
+                    <input type="text" placeholder="Search here">
+                </div>
+                <div class="header-right">
+                    <div class="header-top">
+                        <img src="image/agent.jpg" alt="User" class="user-photo">
+                        <div class="header-text">
+                            <span>Samantha</span>
+                        </div>
+                    </div>
+                    <button class="assign-button1" onclick="openAgentModal()">Assign</button>
+                    
+                </div>
+            </header>
+            <!-- Bouton "Assign" dans l'en-tête -->
+
+<!-- Modal pour la liste des agents -->
+
+
+
+            <!-- Main content -->
+            <section class="technician-list">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="checkbox-cell">
+                                    <input class="CHEK" id="myCheckbox" type="checkbox">
+                                    <label id="lab" for="myCheckbox"></label>
+                                </th>
+                                <th>Requester</th>
+                                <th>Subject</th>
+                                <th>Assignee</th>
+                                <th>Status</th>
+                                <th>Priority</th> 
+                                <th>Last update</th>
+                                <th>Assignment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Lignes de demandeurs -->
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Fatema" data-subject="Issue with network" data-details="Le client a signalé qu'il rencontre des problèmes de connexion.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Fatema
+                                    </a>
+                                </td>
+                                <td class="center-align">Issue with network</td>
+                                <td class="left-align">John Doe</td>
+                                <td class="active1">Active</td>
+                                <td class="High">High</td>
+                                <td class="left-align">20 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Julie" data-subject="Issue with software" data-details="Le client a besoin d'aide pour installer un logiciel.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Julie
+                                    </a>
+                                </td>
+                                <td class="center-align">Software installation</td>
+                                <td class="left-align">Jane Smith</td>
+                                <td class="pending">Pending</td>
+                                <td class="Medium">Medium</td>
+                                <td class="left-align">19 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Michael" data-subject="Hardware issue" data-details="Le client a signalé un problème avec son ordinateur.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Michael
+                                    </a>
+                                </td>
+                                <td class="center-align">Hardware issue</td>
+                                <td class="left-align">Emily Davis</td>
+                                <td class="resolved">Resolved</td>
+                                <td class="Low">Low</td>
+                                <td class="left-align">18 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Alice" data-subject="Software bug" data-details="Le client a rencontré un bug dans le logiciel.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Alice
+                                    </a>
+                                </td>
+                                <td class="center-align">Software bug</td>
+                                <td class="left-align">Robert Brown</td>
+                                <td class="active1">Active</td>
+                                <td class="High">High</td>
+                                <td class="left-align">17 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Bob" data-subject="Network issue" data-details="Le client a des problèmes de connexion réseau.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Bob
+                                    </a>
+                                </td>
+                                <td class="center-align">Network issue</td>
+                                <td class="left-align">Linda Green</td>
+                                <td class="pending">Pending</td>
+                                <td class="Medium">Medium</td>
+                                <td class="left-align">16 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Carol" data-subject="Printer issue" data-details="Le client signale des problèmes avec son imprimante.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Carol
+                                    </a>
+                                </td>
+                                <td class="center-align">Printer issue</td>
+                                <td class="left-align">David Wilson</td>
+                                <td class="resolved">Resolved</td>
+                                <td class="Low">Low</td>
+                                <td class="left-align">15 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Dave" data-subject="Internet issue" data-details="Le client ne parvient pas à se connecter à Internet.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Dave
+                                    </a>
+                                </td>
+                                <td class="center-align">Internet issue</td>
+                                <td class="left-align">Sarah Johnson</td>
+                                <td class="active1">Active</td>
+                                <td class="High">High</td>
+                                <td class="left-align">14 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Eve" data-subject="Login issue" data-details="Le client a des problèmes pour se connecter à son compte.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Eve
+                                    </a>
+                                </td>
+                                <td class="center-align">Login issue</td>
+                                <td class="left-align">Chris Lee</td>
+                                <td class="pending">Pending</td>
+                                <td class="Medium">Medium</td>
+                                <td class="left-align">13 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Frank" data-subject="Application crash" data-details="L'application a planté lors de l'utilisation.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Frank
+                                    </a>
+                                </td>
+                                <td class="center-align">Application crash</td>
+                                <td class="left-align">Jessica Martinez</td>
+                                <td class="resolved">Resolved</td>
+                                <td class="Low">Low</td>
+                                <td class="left-align">12 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td>
+                                <td class="left-align">
+                                    <a href="#" class="requester-link" data-requester="Grace" data-subject="Update issue" data-details="Le client a besoin d'une mise à jour du logiciel.">
+                                        <img src="image/agent.jpg" alt="User" class="user-photo"> Grace
+                                    </a>
+                                </td>
+                                <td class="center-align">Update issue</td>
+                                <td class="left-align">Matthew Thompson</td>
+                                <td class="active1">Active</td>
+                                <td class="High">High</td>
+                                <td class="left-align">11 July 2024</td>
+                                <td><button class="assign-button">Assign</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                          
+                <!-- Pagination -->
+                <div class="pagination">
+                    <span class="prev">Previous page</span>
+                    <span class="active">1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span class="next">Next page</span>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="tickets.js"></script>
+    
+
+
+    <!-- Modal for ticket details -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+           
+            <div class="ticket-container">
+                <h2>Détails du ticket</h2>
+                <div class="comment-section">
+                    <p><strong>Demandeur :</strong> <span id="modal-requester"></span></p>
+                </div>
+                <div class="comment-section">
+                    <p><strong>Sujet :</strong> <span id="modal-subject"></span></p>
+                </div>
+                <div class="comment-section">
+                    <p><strong>Détails du sujet :</strong> <span id="modal-details"></span></p>
+                </div>
+                <!-- Zone de commentaire -->
+                <div class="comment-section">
+                    <textarea id="modal-comment" class="comment-input" placeholder="Commentaire:" rows="5"></textarea>
+                </div>
+                <div class="comment-actions">
+                    <button class="comment-submit" onclick="submitComment()">Poster</button>
+                    <button class="comment-cancel" onclick="closeModal()">Retour</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for agent details -->
+    <div id="agentModal" class="modall">
+        <div class="modal-contentt">
+            <span class="closee" onclick="closeAgentModal()">&times;</span>
+            <div class="modal-body">
+                <div class="container">
+                    <!-- Main content -->
+                    <main class="content">
+                        <!-- Table -->
+                        <section class="technician-list">
+                            <div class="table-container">
+                                <table>
+                                    <thead class="backgr">
+                                        <tr>
+                                            <th>
+                                            <div class="filter-section">
+                                                <!-- <label for="filter">Filter by:</label> -->
+                                                <select id="filter" name="filter">
+                                                    <option value="day">Jour</option>
+                                                    <option value="month">Mois</option>
+                                                    <option value="year">Année</option>
+                                                </select>
+                                            </div>
+                                        </th>
+                                            <th>Nom de l'agent</th>
+                                            <th>Catégorie</th>
+                                            <th>Nombre de tickets attribués</th>
+                                            <th>Nombre de tickets ouverts</th>
+                                            <th>Nombre de tickets résolus</th>
+                                            <th>Nombre de tickets fermés</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Lignes de demandeurs -->
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>Fatema</td>
+                                            <td>Support Technique</td>
+                                            <td id="tickets-attribues"><span>8</span></td>
+                                            <td id="tickets-ouverts"><span>5</span></td>
+                                            <td id="tickets-resolus"><span>30</span></td>
+                                            <td id="tickets-fermes"><span>40</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>Julie</td>
+                                            <td>Support Technique</td>
+                                            <td id="tickets-attribuess"><span>3</span></td>
+                                            <td id="tickets-ouvertss"><span>2</span></td>
+                                            <td id="tickets-resoluss"><span>75</span></td>
+                                            <td id="tickets-fermess"><span>70</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>Michael</td>
+                                            <td>Support Technique</td>
+                                            <td id="tickets-attribuesss"><span>4</span></td>
+                                            <td id="tickets-ouvertsss"><span>2</span></td>
+                                            <td id="tickets-resolusss"><span>56</span></td>
+                                            <td id="tickets-fermesss"><span>50</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>Alice</td>
+                                            <td>Support Technique</td>
+                                            <td id="tickets-attribuessss"><span>2</span></td>
+                                            <td id="tickets-ouvertssss"><span>1</span></td>
+                                            <td id="tickets-resolussss"><span>10</span></td>
+                                            <td id="tickets-fermessss"><span>8</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- pagination -->
+                            <div class="pagination">
+                                <span class="prev">Previous page</span>
+                                <span class="active">1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span class="next">Next page</span>
+                            </div>
+                            </section>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  // Sélecteurs des éléments
+  const filterSelect = document.getElementById('filter');
+  const openedTicketsElem = document.getElementById('tickets-ouverts').querySelector('span');
+  const closedTicketsElem = document.getElementById('tickets-fermes').querySelector('span');
+  const solvedTicketsElem = document.getElementById('tickets-resolus').querySelector('span');
+  const assignedTicketsElem = document.getElementById('tickets-attribues').querySelector('span');
+
+  const openedTicketsElem2 = document.getElementById('tickets-ouvertss').querySelector('span');
+  const closedTicketsElem2 = document.getElementById('tickets-fermess').querySelector('span');
+  const solvedTicketsElem2 = document.getElementById('tickets-resoluss').querySelector('span');
+  const assignedTicketsElem2 = document.getElementById('tickets-attribuess').querySelector('span');
+
+  const openedTicketsElem3 = document.getElementById('tickets-ouvertsss').querySelector('span');
+  const closedTicketsElem3 = document.getElementById('tickets-fermesss').querySelector('span');
+  const solvedTicketsElem3 = document.getElementById('tickets-resolusss').querySelector('span');
+  const assignedTicketsElem3 = document.getElementById('tickets-attribuesss').querySelector('span');
+
+  const openedTicketsElem4 = document.getElementById('tickets-ouvertssss').querySelector('span');
+  const closedTicketsElem4 = document.getElementById('tickets-fermessss').querySelector('span');
+  const solvedTicketsElem4 = document.getElementById('tickets-resolussss').querySelector('span');
+  const assignedTicketsElem4 = document.getElementById('tickets-attribuessss').querySelector('span');
+
+  // Fonction pour mettre à jour les valeurs en fonction du filtre sélectionné
+  function updateValues(filter) {
+      let openedTickets, closedTickets, solvedTickets, assignedTickets;
+      let openedTickets2, closedTickets2, solvedTickets2, assignedTickets2;
+      let openedTickets3, closedTickets3, solvedTickets3, assignedTickets3;
+      let openedTickets4, closedTickets4, solvedTickets4, assignedTickets4;
+
+      switch (filter) {
+          case 'day':
+              openedTickets = 5;
+              closedTickets = 3;
+              solvedTickets = 7;
+              assignedTickets = 2;
+              openedTickets2 = 4;
+              closedTickets2 = 5;
+              solvedTickets2 = 8; 
+              assignedTickets2 = 9;
+              openedTickets3 = 0;
+              closedTickets3 = 1;
+              solvedTickets3 = 6;
+              assignedTickets3 = 7;
+              openedTickets4 = 3;
+              closedTickets4 = 2; 
+              solvedTickets4 = 8;
+              assignedTickets4 = 4;
+              break;
+          case 'month':
+              openedTickets = 150;
+              closedTickets = 100;
+              solvedTickets = 130;
+              assignedTickets = 120;
+              openedTickets2 = 145;
+              closedTickets2 = 125;
+              solvedTickets2 = 128; 
+              assignedTickets2 = 179;
+              openedTickets3 = 190;
+              closedTickets3 = 129;
+              solvedTickets3 = 176;
+              assignedTickets3 = 187;
+              openedTickets4 = 103;
+              closedTickets4 = 172; 
+              solvedTickets4 = 148;
+              assignedTickets4 = 134;
+              break;
+          case 'year':
+              openedTickets = 1800;
+              closedTickets = 1200;
+              solvedTickets = 1500;
+              assignedTickets = 1400;
+              openedTickets2 = 1004;
+              closedTickets2 = 1945;
+              solvedTickets2 = 1988; 
+              assignedTickets2 = 1349;
+              openedTickets3 = 1230;
+              closedTickets3 = 1345;
+              solvedTickets3 = 1246;
+              assignedTickets3 = 1787;
+              openedTickets4 = 1793;
+              closedTickets4 = 1682; 
+              solvedTickets4 = 1088;
+              assignedTickets4 = 1984;
+              break;
+          default:
+              openedTickets = 0;
+              closedTickets = 0;
+              solvedTickets = 0;
+              assignedTickets = 0;
+              openedTickets2 = 0;
+              closedTickets2 = 0;
+              solvedTickets2 = 0; 
+              assignedTickets2 = 0;
+              openedTickets3 = 0;
+              closedTickets3 = 0;
+              solvedTickets3 = 0;
+              assignedTickets3 = 0;
+              openedTickets4 = 0;
+              closedTickets4 = 0; 
+              solvedTickets4 = 0;
+              assignedTickets4 = 0;
+              break;
+      }
+
+      // Mettre à jour les éléments
+      openedTicketsElem.textContent = openedTickets;
+      closedTicketsElem.textContent = closedTickets;
+      solvedTicketsElem.textContent = solvedTickets;
+      assignedTicketsElem.textContent = assignedTickets;
+      openedTicketsElem2.textContent = openedTickets2;
+      closedTicketsElem2.textContent = closedTickets2;
+      solvedTicketsElem2.textContent = solvedTickets2;
+      assignedTicketsElem2.textContent = assignedTickets2;
+      openedTicketsElem3.textContent = openedTickets3;
+      closedTicketsElem3.textContent = closedTickets3;
+      solvedTicketsElem3.textContent = solvedTickets3;
+      assignedTicketsElem3.textContent = assignedTickets3;
+      openedTicketsElem4.textContent = openedTickets4;
+      closedTicketsElem4.textContent = closedTickets4;
+      solvedTicketsElem4.textContent = solvedTickets4;
+      assignedTicketsElem4.textContent = assignedTickets4;
+  }
+
+  // Ajouter un écouteur d'événements pour détecter les changements de filtre
+  filterSelect.addEventListener('change', (event) => {
+      const selectedFilter = event.target.value;
+      updateValues(selectedFilter);
+  });
+
+  // Initialiser les valeurs au chargement de la page
+  updateValues(filterSelect.value);});
+
+   </script> 
+</body>
+</html>

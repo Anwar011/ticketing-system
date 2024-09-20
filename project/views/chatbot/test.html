@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Chatbot and LLaMA2 API</title>
+    <link rel="icon" href="/path/to/favicon.ico" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .response {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* Preserve whitespace formatting */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Chatbot</h1>
+        <form id="testForm">
+            <label for="prompt">Message:</label>
+            <textarea id="prompt" name="prompt" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+        <div class="response" id="response"></div>
+    </div>
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+    
+            const prompt = document.getElementById('prompt').value;
+    
+            // Clear the previous response
+            document.getElementById('response').innerText = '';
+    
+            // First, check the knowledge base
+            fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: prompt
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.response && data.response.trim() !== '') {
+                    // If the response from the knowledge base is non-empty
+                    document.getElementById('response').innerText = data.response;
+                } else {
+                    // If the response is empty or not found, query LLaMA2 API
+                    fetch('/llama2', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            prompt: prompt,
+                            model: 'llama2'
+                        })
+                    })
+                    .then(response => {
+                        if (!response.body) {
+                            throw new Error('ReadableStream not supported');
+                        }
+    
+                        const reader = response.body.getReader();
+                        const decoder = new TextDecoder();
+                        let result = '';
+    
+                        reader.read().then(function processText({ done, value }) {
+                            if (done) {
+                                return;
+                            }
+    
+                            result += decoder.decode(value, { stream: true });
+    
+                            // Process the accumulated result to extract 'response' key
+                            try {
+                                // Split the result into lines and parse each line
+                                result.split('\n').forEach(line => {
+                                    if (line.trim()) {
+                                        const data = JSON.parse(line.trim());
+                                        if (data.response) {
+                                            document.getElementById('response').innerText += data.response;
+                                        }
+                                    }
+                                    
+                                });
+                            } catch (error) {
+                                console.error('Parsing error:', error);
+                            }
+    
+                            return reader.read().then(processText);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('response').innerText = 'An error occurred while contacting LLaMA2. Please try again.';
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('response').innerText = 'An error occurred while contacting the knowledge base. Please try again.';
+            });
+        });
+    </script>
+    
+</body>
+</html>

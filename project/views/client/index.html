@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Ticket</title>
+    <link rel="stylesheet" href="form.css">
+    <link rel="icon" href="/path/to/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <img src="image/logo.png" alt="Logo ICESCO" class="logo">
+                
+            </div>
+        </div>
+        <form id="ticketForm" method="POST" class="main-content">
+            <div class="main-content">
+                <div class="left-panel">
+                    <label for="title">Ticket Title *</label>
+                    <input type="text" id="title" name="title" placeholder="Add brief ticket summary" required>
+                    <label for="description">Description *</label>
+                    <textarea id="description" name="description" placeholder="Enter ticket details here" required></textarea>
+                </div>
+                <div class="right-panel">
+                   
+                    <label for="priority">Niveau de criticite</label>
+                    <select id="priority" name="priority" required>
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                    <label for="category">Categorie</label>
+                    <select id="category" name="category" required>
+                        <option>Reseau</option>
+                        <option>System</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <img src="image/giphy.webp" alt="chatbot" class="chatbot"> <!-- Assure-toi qu'il n'y a pas d'espace dans le nom du fichier -->
+            </div>
+            <div class="footer">
+                <button class="cancel-button" type="button">Cancel</button>
+                <button class="submit-button" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Code du pop-up -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="header-title">Hello Welcome to ICESCO.</div>
+                </div>
+                <div class="chat-content" id="chat-content">
+                    <div class="chat-message bot">
+                        <div class="message-content">
+                            <p>Hello I am <strong>ALEM</strong> your AI assistant.<br>How can I assist you today?</p>
+                        </div>
+                        <div class="message-time">08:59 AM</div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type here..." class="input-field">
+                    <button class="send-button">&#128073;</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="form.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const logoutButton = document.getElementById('logout-button');
+          if (logoutButton) {
+              console.log('Logout button found:', logoutButton);
+              logoutButton.addEventListener('click', function() {
+                  console.log('Logout button clicked');
+                  fetch('/logout', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      }
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log('Logout response:', data);
+                      if (data.message === 'Successfully logged out.') {
+                          window.location.href = '/views/login/index.html'; // Redirect to the login page
+                      } else {
+                          alert('Logout failed.');
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                  });
+              });
+          } else {
+              console.error('Logout button not found');
+          }
+      });
+    </script>
+</body>
+</html>

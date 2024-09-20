@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>support</title>
+    <link rel="stylesheet" href="/views/support/support.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    
+    <div class="container">
+        <!-- --------------------------------------------Sidebar ---------------------------------------------------------------------------->
+        <nav class="sidebar">
+            <ul>
+                <br>
+                <br>
+                <br>
+                <li>
+                    <a href="/views/dashboard/index.html" class="text"><span class="icon"><i class="material-icons">dashboard</i></span>
+                        Dashboard</a>
+                </li>
+               
+                    <li class="active dropdown">
+                        <a href="file:///E:/6-VSC/VSC7%20(ticketing%20system)/VSC7.1%20(tickets)/tickets.html" class="text1"><span class="icon"><i class="material-icons">receipt</i></span>
+                            Tickets</a>
+                        <div class="dropdown-toggle">&#9660;</div> 
+                        <div class="dropdown-menu">
+                            <a href="#">Open</a>
+                            <a href="#">Resolved</a>
+                        </div>
+                    </li>
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">people</i></span>
+                    Users
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">person_add</i></span>
+                    Agents
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">calendar_today</i></span>
+                    Calendar
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">bar_chart</i></span>
+                    Reports
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">settings</i></span>
+                    Settings
+                </li>
+                <li id="logout-button">
+                  <span class="icon"><i class="material-icons">logout</i></span>
+                  Logout
+              </li>
+            </ul>
+        </nav>
+        <!---------------------------------------------- Barre d entete ------------------------------------------------------------------->
+        <main class="content">
+            <button class="sidebar-toggle">&#9776;</button>
+            <header>
+                <img src="image/logo.png" alt="" class="logo">
+                <div class="header-center">
+                    <input type="text" placeholder="Search here">
+                </div>
+                <div class="header-right">
+                    <div class="header-top">
+                        <img src="image/agent.jpg" alt="User" class="user-photo">
+                        <div class="header-text">
+                            <span>Samantha</span>
+                            <button id="assign-button" class="assign-button">Assign</button>
+
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!--------------------------------------- Main content ------------------------------------------------------------------------>
+            <!-- Tableau -->
+            <section class="technician-list">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                              <th class="checkbox-cell">
+                                <input class="CHEK" id="myCheckbox" type="checkbox">
+                                <label id="lab" for="myCheckbox"></label>
+                            </th>
+                            </th>
+                            <th>Requester</th>
+                            <th>Subject</th>
+                            <th>Assignee</th>
+                            <th>Status</th>
+                            <th>Priority</th> 
+                            <th>Last update</th>
+                            <th>Assignment</th>
+                        </tr>
+                            </tr>
+                        </thead>
+                        <tbody id="ticket-body">
+                            <!-- Lignes de demandeurs -->
+                           
+                        </tbody>
+                    </table>
+                </div>
+               
+                <!-- pagination -->
+                <div class="pagination">
+                    <span class="prev">Previous page</span>
+                    <span class="active">1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span class="next">Next page</span>
+                </div>
+            </section>
+        </main>
+        <div id="agentModal" class="modall">
+          <div class="modal-contentt">
+              <span class="closee" onclick="closeAgentModal()">&times;</span>
+              <div class="modal-body">
+                  <div class="container">
+                      <!-- Main content -->
+                      <main class="content">
+                          <!-- Table -->
+                          <section class="technician-list">
+                              <div class="table-container">
+                                  <table>
+                                      <thead class="backgr">
+                                          <tr>
+                                              <th>Nom de l'agent</th>
+                                              <th>Catégorie</th>
+                                              <th>Nombre de tickets attribués</th>
+                                              <th>Nombre de tickets ouverts</th>
+                                              <th>Nombre de tickets résolus</th>
+                                              <th>Nombre de tickets fermés</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <!-- Lignes de demandeurs -->
+                                          
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <!-- pagination -->
+                              <div class="pagination">
+                                  <span class="prev">Previous page</span>
+                                  <span class="active">1</span>
+                                  <span>2</span>
+                                  <span>3</span>
+                                  <span>4</span>
+                                  <span>5</span>
+                                  <span class="next">Next page</span>
+                              </div>
+                              </section>
+                      </main>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    </div>
+    <script src="/views/support/support.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const logoutButton = document.getElementById('logout-button');
+        if (logoutButton) {
+            console.log('Logout button found:', logoutButton);
+            logoutButton.addEventListener('click', function() {
+                console.log('Logout button clicked');
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Logout response:', data);
+                    if (data.message === 'Successfully logged out.') {
+                        window.location.href = '/views/login/index.html'; // Redirect to the login page
+                    } else {
+                        alert('Logout failed.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        } else {
+            console.error('Logout button not found');
+        }
+    });
+  </script>
+</body>
+</html>  

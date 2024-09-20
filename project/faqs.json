@@ -1,0 +1,102 @@
+[
+  {
+    "question": "How do I reset my password?",
+    "answer": "To reset your password, go to the login page and click on 'Forgot Password'. Follow the instructions sent to your email."
+  },
+  {
+    "question": "Who are you?",
+    "answer": "I am Alem, the first digital employee of ICESCO. Your AI virtual Assistant, Feel free to ask !"
+  },
+  {
+    "question": "How can I track my ticket status?",
+    "answer": "You can track your ticket status by logging into your account and navigating to the 'My Tickets' section."
+  },
+  {
+    "question": "How do I create a new ticket?",
+    "answer": "To create a new ticket, log into your account and click on 'Create Ticket'. Fill in the required details and submit the form."
+  },
+  {
+    "question": "What is the response time for a ticket?",
+    "answer": "Our support team aims to respond to tickets within 24 hours. Response times may vary depending on the complexity of the issue."
+  },
+  {
+    "question": "Can I edit my ticket after submission?",
+    "answer": "You can edit your ticket within 1 hour of submission. After that, please contact support to make changes."
+  },
+  {
+    "question": "How do I close a ticket?",
+    "answer": "To close a ticket, log into your account, navigate to 'My Tickets', select the ticket you want to close, and click on 'Close Ticket'."
+  },
+  {
+    "question": "How do I change my account email?",
+    "answer": "To change your account email, go to 'Account Settings' and update your email address. A confirmation email will be sent to your new address."
+  },
+  {
+    "question": "What should I do if I don't receive a confirmation email?",
+    "answer": "If you don't receive a confirmation email, check your spam folder. If it's not there, contact our support team for assistance."
+  },
+  {
+    "question": "How do I delete my account?",
+    "answer": "To delete your account, go to 'Account Settings' and click on 'Delete Account'. Please note that this action is irreversible."
+  },
+  {
+    "question": "How can I provide feedback about the support service?",
+    "answer": "We value your feedback! To provide feedback, log into your account and click on 'Feedback'. Fill in the form and submit your comments."
+  },
+  {
+    "question": "What is the priority level for tickets?",
+    "answer": "Tickets can be assigned priority levels of Low, Medium, High, or Urgent. This helps our team address the most critical issues first."
+  },
+  {
+    "question": "Can I assign a ticket to a specific agent?",
+    "answer": "Yes, support and admin users can assign tickets to specific agents from the ticket management interface."
+  },
+  {
+    "question": "What happens if an agent is unavailable?",
+    "answer": "If an agent is unavailable, the ticket will be reassigned to another agent to ensure timely resolution of the issue."
+  },
+  {
+    "question": "How do I update my profile information?",
+    "answer": "To update your profile information, log into your account, go to 'Profile Settings', and update your details."
+  },
+  {
+    "question": "Can I attach files to my ticket?",
+    "answer": "Yes, you can attach files to your ticket. While creating or updating a ticket, use the 'Attach File' option to upload relevant documents."
+  },
+  {
+    "question": "How do I view my ticket history?",
+    "answer": "To view your ticket history, log into your account and navigate to 'My Tickets'. You'll find a list of all your previous tickets there."
+  },
+  {
+    "question": "What types of issues can be reported through the ticket system?",
+    "answer": "You can report a variety of issues, including technical problems, account issues, billing inquiries, and general questions about our services."
+  },
+  {
+    "question": "How can I escalate a ticket if it’s not being resolved quickly?",
+    "answer": "If your ticket is not being resolved promptly, you can request an escalation by contacting support and providing your ticket number."
+  },
+  {
+    "question": "Can I track the progress of my ticket resolution?",
+    "answer": "Yes, you can track the progress of your ticket resolution by logging into your account and viewing the ticket details. Updates will be shown there."
+  },
+  {
+    "question": "How do I contact support if I need immediate assistance?",
+    "answer": "For immediate assistance, you can use our live chat feature or call our support hotline. The contact details are available on our 'Contact Us' page."
+  },
+  {
+    "question": "What should I include in a support ticket for the best results?",
+    "answer": "For the best results, include a detailed description of your issue, any error messages you’ve received, and relevant screenshots or files."
+  },
+  {
+    "question": "Is there a way to prioritize my ticket?",
+    "answer": "Tickets are typically prioritized based on urgency and impact. If you believe your ticket requires higher priority, please mention this in your ticket description."
+  },
+  {
+    "question": "How can I check if my ticket has been received?",
+    "answer": "You will receive an email confirmation when your ticket is received. You can also check the status of your ticket by logging into your account."
+  },
+  {
+    "question": "What are the business hours for support?",
+    "answer": "Our support team is available Monday to Friday from 9 AM to 5 PM. Support may be limited on weekends and holidays."
+  }
+]

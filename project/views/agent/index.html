@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent</title>
+    <link rel="stylesheet" href="agent.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<style>/* Styles globaux */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        overflow-x: hidden;
+      }
+      
+      .container {
+        display: flex;
+        transition: margin-left 0.3s;
+        position: relative;
+        overflow: hidden;
+        margin-top: 20px; 
+      }
+      /* --------------------------------------------------------Sidebar -------------------------------------------------------*/
+      /* Styles de la barre latérale */
+      .sidebar {
+        width: 250px;
+        background-color: #008484; 
+        color: #ecf0f1;
+        padding: 20px;
+        height: 100vh; 
+        position: fixed; 
+        transform: translateX(-100%); 
+        top: 0;
+        transition: transform 0.3s; 
+        z-index: 999; 
+      }
+      
+      .text{
+        color: white;
+        text-decoration: none;
+      }
+      
+      .text1{
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      
+      /* Affichage de la barre latérale quand elle est active */
+      .sidebar.show {
+        transform: translateX(0); 
+      }
+      
+      /* Styles de la liste de navigation dans la barre latérale */
+      .sidebar ul {
+        list-style: none; 
+        padding: 0;
+      }
+      
+      /* Styles des éléments de la liste de navigation */
+      .sidebar ul li {
+        padding: 15px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border-radius: 5px; 
+        transition: background-color 0.3s; 
+      }
+      
+      /* Styles des éléments de la liste au survol et quand ils sont actifs */
+      .sidebar ul li:hover {
+        background-color: #6d9ea3;
+      }
+      
+      .sidebar ul li.active {
+        background-color: #1c747c;
+      }
+      
+      /* Styles des icônes des éléments de la liste */
+      .sidebar ul li .icon {
+        font-size: 20px;
+        margin-right: 15px;
+      }
+      
+      /* Styles des sous-menus déroulants dans la barre latérale */
+      .sidebar .dropdown-menu {
+        display: none; 
+        position: absolute;
+        background-color: #1c747c;
+        border-radius: 4px;
+        margin-top: 5px;
+      }
+      
+      .dropdown-menu{
+        color: white;
+      }
+      
+      /* Affichage du sous-menu quand il est actif */
+      .sidebar .dropdown.show .dropdown-menu {
+        display: block;
+      }
+      
+      /* Styles des liens dans les sous-menus */
+      .sidebar .dropdown-menu a {
+        display: block;
+        padding: 10px;
+        text-decoration: none; 
+        color: white;
+      }
+      
+      /* Styles des liens dans les sous-menus au survol */
+      .sidebar .dropdown-menu a:hover {
+        background-color: #6d9ea3;
+      }
+      
+      /* Styles du bouton pour afficher/cacher la barre latérale */
+      .sidebar-toggle {
+        position: fixed;
+        background-color: #008484; 
+        color: #f1ecee;
+        border: none;
+        padding: 10px 13px;
+        font-size: 20px;
+        cursor: pointer;
+        top: 10px; 
+        left: 10px; 
+        border-radius: 10px;
+        z-index: 1001; 
+      }
+      
+      /* ----------------------------------------------------------Barre d'entete------------------------------------------ */
+      .logo{
+        width: 200px;
+        position: relative;
+        left: 100px;
+      }
+      
+      .active1{
+        color: rgb(228, 228, 13);
+      }
+      
+      .pending{
+        color: red;
+      }
+      
+      .resolved{
+        color: green;
+      }
+      
+      .content {
+        flex: 1;
+        padding: 20px;
+        transition: margin-left 0.3s;
+      }
+      
+      
+      /* Styles de l'en-tête */
+      header {
+        display: flex;
+        align-items: center;
+        background-color: #ffffff;
+        padding: 10px 20px;
+        border-bottom: 1px solid #e0e0e0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%; 
+        z-index: 1000;
+        height: 50px;
+      }
+      
+      .header-center {
+        flex: 1;
+        display: flex;
+        justify-content: space-evenly; 
+      }
+      
+      .header-center input {
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        outline: none;
+        width: 100%;
+        max-width: 500px;
+        margin-left: 2cm; 
+      }
+      
+      .header-center input:focus {
+        border-color: #84c1d3; 
+      }
+      
+      .text{
+        color: white;
+        text-decoration: none;
+      }
+      
+      .header-right {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
+      
+      .header-top {
+        display: flex;
+        align-items: center;
+        margin-right: 100px; 
+      }
+      
+      .user-photo {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+      
+      .header-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-right: -30px;
+      }
+      
+      
+      .technician-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+      }
+      
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        padding-left: 110px; 
+        padding-right: 110px; 
+      }
+      
+      .sidebar.show~.content .table-container {
+        width: calc(100% - 290px);
+        padding-left: 330px;
+        padding-right: 40px;
+      }
+      
+      .technician-list table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .technician-list th, .technician-list td {
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      
+      .technician-list th {
+        background-color: #f5f5f5;
+        text-align: center;
+      }
+      
+      .technician-list td img {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+      
+      .checkbox-cell {
+        text-align: center;
+      }
+      
+      .technician-list th:nth-child(1),
+      .technician-list td:nth-child(1) {
+        text-align: center; 
+      }
+      
+      .technician-list th:nth-child(2),
+      .technician-list td:nth-child(2) {
+        text-align: left;
+      }
+      
+      .technician-list th:nth-child(3),
+      .technician-list td:nth-child(3) {
+        text-align: left;
+      }
+      
+      .technician-list th:nth-child(4),
+      .technician-list td:nth-child(4) {
+        text-align: left;
+      }
+      
+      .technician-list th:nth-child(5),
+      .technician-list td:nth-child(5) {
+        text-align: left;
+      }
+      
+      .technician-list th:nth-child(6),
+      .technician-list td:nth-child(6) {
+        text-align: center;
+      }
+      
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 5px;
+      }
+      
+      .pagination span {
+        cursor: pointer;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        background-color: #e0e0e0;
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      
+      .pagination span:hover,
+      .pagination span.active {
+        background-color: #84c1d3; 
+        color: #ffffff;
+      }
+      
+      .pagination span.disabled {
+        cursor: not-allowed;
+        color: #b0b0b0;
+        background-color: #f5f5f5;
+      }
+      
+      .pagination .prev,
+      .pagination .next {
+        font-weight: bold;
+      }
+      
+
+      @media screen and (max-width: 767px) {
+        .logo{
+            width: 150px;
+        }
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+       
+      }
+      
+</style>
+<body>
+    
+    <div class="container">
+        <!-- --------------------------------------------Sidebar ---------------------------------------------------------------------------->
+        <nav class="sidebar">
+            <ul>
+                <br>
+                <br>
+                <br>
+                <li>
+                    <a href="file:///E:/6-VSC/VSC7%20(ticketing%20system)/VSC7.3%20(dashboard)/dashboard.html" class="text"><span class="icon"><i class="material-icons">dashboard</i></span>
+                        Dashboard</a>
+                </li>
+               
+                    <li class="active dropdown">
+                        <a href="file:///E:/6-VSC/VSC7%20(ticketing%20system)/VSC7.1%20(tickets)/tickets.html" class="text1"><span class="icon"><i class="material-icons">receipt</i></span>
+                            Tickets</a>
+                        <div class="dropdown-toggle">&#9660;</div> 
+                        <div class="dropdown-menu">
+                            <a href="#">Open</a>
+                            <a href="#">Resolved</a>
+                        </div>
+                    </li>
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">people</i></span>
+                    Users
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">person_add</i></span>
+                    Agents
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">calendar_today</i></span>
+                    Calendar
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">bar_chart</i></span>
+                    Reports
+                </li>
+                <li>
+                    <span class="icon"><i class="material-icons">settings</i></span>
+                    Settings
+                </li>
+                <li id="logout-button">
+                    <span class="icon"><i class="material-icons">logout</i></span>
+                    Logout
+                </li>
+            </ul>
+        </nav>
+        <!---------------------------------------------- Barre d entete ------------------------------------------------------------------->
+        <main class="content">
+            <button class="sidebar-toggle">&#9776;</button>
+            <header>
+                <img src="image/logo.png" alt="" class="logo">
+                <div class="header-center">
+                    <input type="text" placeholder="Search here">
+                </div>
+                <div class="header-right">
+                    <div class="header-top">
+                        <img src="image/agent.jpg" alt="User" class="user-photo">
+                        <div class="header-text">
+                            <span>Samantha</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!--------------------------------------- Main content ------------------------------------------------------------------------>
+            <!-- Tableau -->
+            <section class="technician-list">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Requester</th>
+                                <th>Subject</th>
+                                <th>Assignee</th>
+                                <th>Status</th>
+                                <th>Last update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticket-body">
+                            <!-- Lignes de demandeurs -->
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox"></td>
+                                <td class="left-align"><img src="image/agent.jpg" alt="User" class="user-photo"> Fatema</td>
+                                <td class="center-align">Issue with network</td>
+                                <td class="left-align">John Doe</td>
+                                <td class="active1">Active</td>
+                                <td class="left-align">20 July 2024</td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox"></td>
+                                <td class="left-align"><img src="image/agent.jpg" alt="User" class="user-photo"> Julie</td>
+                                <td class="center-align">Software installation</td>
+                                <td class="left-align">John Doe</td>
+                                <td class="pending">Pending</td>
+                                <td class="left-align">19 July 2024</td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox"></td>
+                                <td class="left-align"><img src="image/agent.jpg" alt="User" class="user-photo"> Michael</td>
+                                <td class="center-align">Hardware issue</td>
+                                <td class="left-align">John Doe</td>
+                                <td class="resolved">Resolved</td>
+                                <td class="left-align">18 July 2024</td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox"></td>
+                                <td class="left-align"><img src="image/agent.jpg" alt="User" class="user-photo"> Alice</td>
+                                <td class="center-align">Software bug</td>
+                                <td class="left-align">John Doe</td>
+                                <td class="active1">Active</td>
+                                <td class="left-align">17 July 2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- pagination -->
+                <div class="pagination">
+                    <span class="prev">Previous page</span>
+                    <span class="active">1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span class="next">Next page</span>
+                </div>
+            </section>
+        </main>
+
+    </div>
+    <script>// Obtenez les éléments
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarToggle = document.querySelector('.sidebar-toggle');
+        const container = document.querySelector('.container');
+        async function fetchTickets() {
+    try {
+        const response = await fetch('/tickets');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const textResponse = await response.text(); // Get response as text first
+        console.log('Response Text:', textResponse); // Log the text response
+
+        const tickets = JSON.parse(textResponse); // Parse the text response to JSON
+
+        const tbody = document.getElementById('ticket-body');
+        tbody.innerHTML = ''; // Clear existing rows
+
+        tickets.forEach(ticket => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td class="left-align"><img src="image/agent.jpg" alt="User" class="user-photo"> ${ticket.client_id}</td>
+                <td class="center-align">${ticket.title}</td>
+                <td class="left-align">${ticket.agent_id}</td>
+                <td class="active">${ticket.status}</td>
+                <td class="left-align">${new Date(ticket.updated_at).toLocaleDateString()}</td>
+            `;
+            row.addEventListener('click', (event) => {
+
+viewTicketDetails(ticket.id);
+});
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching tickets:', error);
+    }
+}
+
+
+    // Call fetchTickets when the page loads
+    document.addEventListener('DOMContentLoaded', fetchTickets);
+        // Fonction pour ouvrir ou fermer la sidebar
+        function toggleSidebar() {
+          sidebar.classList.toggle('show');
+        
+          // Gérer le surlignage
+          if (sidebar.classList.contains('show')) {
+            dashboardItem.classList.add('active'); 
+          } else {
+            dashboardItem.classList.remove('active'); 
+          }
+        }
+        
+        // Fonction pour fermer la barre latérale lorsqu'on clique en dehors
+        function closeSidebar(event) {
+          if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('show'); 
+            dashboardItem.classList.remove('active'); 
+          }
+        }
+        
+        // Ajouter des écouteurs d'événements
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        document.addEventListener('click', closeSidebar);
+        
+        // Fonction pour ouvrir ou fermer le menu déroulant
+        function toggleDropdown(event) {
+          const dropdown = event.currentTarget.parentElement;
+          dropdown.classList.toggle('show');
+        }
+        
+        // Ajouter des écouteurs d'événements pour les dropdowns
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+          toggle.addEventListener('click', toggleDropdown);
+        });
+       
+      document.addEventListener('DOMContentLoaded', function() {
+        const logoutButton = document.getElementById('logout-button');
+        if (logoutButton) {
+            console.log('Logout button found:', logoutButton);
+            logoutButton.addEventListener('click', function() {
+                console.log('Logout button clicked');
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Logout response:', data);
+                    if (data.message === 'Successfully logged out.') {
+                        window.location.href = '/views/login/index.html'; // Redirect to the login page
+                    } else {
+                        alert('Logout failed.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        } else {
+            console.error('Logout button not found');
+        }
+    });
+    function viewTicketDetails(ticketId) {
+window.location.href = `/views/ticket-details.html?id=${ticketId}`;
+}
+
+        </script>
+</body>
+</html>
